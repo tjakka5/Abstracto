@@ -3,39 +3,64 @@ local Run = require("run").initialize()
 local Qecs   = require("lib.qecs")
 local Vector = require("lib.vector")
 
-local Instance = Qecs.instance()
-Run.addInstance(Instance)
+local Game = require("src.instances.game")
 
-local last = Vector(0, 0)
-local pos  = Vector(0, 0)
+local Transform     = require("src.components.transform")
+local Sprite        = require("src.components.sprite")
+local Body          = require("src.components.body")
+local Controls      = require("src.components.controls")
+local InputResponse = require("src.components.inputResponse")
+local Viewport      = require("src.components.viewport")
+local Collider      = require("src.components.collider")
 
-local FramerateDisplay = Qecs.system()
-function FramerateDisplay:update(dt)
-   last = pos:clone()
+local Physics         = require("src.systems.physics")
+local SpriteRenderer  = require("src.systems.spriteRenderer")
+local InputHandler    = require("src.systems.inputHandler")
+local ViewportHandler = require("src.systems.viewportHandler")
 
-   if love.keyboard.isDown("w") then
-      pos = pos + Vector(0, -100 * dt)
+Game:addSystem(SpriteRenderer)
+Game:addSystem(Physics)
+Game:addSystem(InputHandler)
+Game:addSystem(ViewportHandler)
+
+local Player = Qecs.entity()
+Player:give(Transform, Vector(213, 0), Vector(38, 50))
+Player:give(Sprite, love.graphics.newImage("assets/player/playerGreen_stand.png"), {255, 255, 255}, 1)
+Player:give(Body, Vector(0, 0), 1, 7)
+Player:give(Collider)
+Player:give(Controls, "w", "s", "a", "d")
+Player:give(InputResponse, function(e)
+   local body = e:get(Body)
+   if body.onGround then
+      body.velocity.y = body.velocity.y - 800
    end
+end, function(e, dt)
+end, function(e, dt)
+   local body = e:get(Body)
+   body.velocity.x = body.velocity.x - 1400 * dt
+end, function(e, dt)
+   local body = e:get(Body)
+   body.velocity.x = body.velocity.x + 1400 * dt
+end)
 
-   if love.keyboard.isDown("a") then
-      pos = pos + Vector(-100 * dt, 0)
-   end
+local Ground = Qecs.entity()
+Ground:give(Transform, Vector(200, 400), Vector(64, 64))
+Ground:give(Sprite, love.graphics.newImage("assets/tiles/1.png"), {255, 255, 255}, 0)
+Ground:give(Body, Vector(0, 0), 0, 0)
+Ground:give(Collider)
 
-   if love.keyboard.isDown("s") then
-      pos = pos + Vector(0, 100 * dt)
-   end
+local Camera = Qecs.entity()
+Camera:give(Transform, Vector(0, 0), Vector(0, 0))
+Camera:give(Viewport, Ground:get(Transform).position)
 
-   if love.keyboard.isDown("d") then
-      pos = pos + Vector(100 * dt, 0)
-   end
-end
+Game:addEntity(Player)
+Game:addEntity(Ground)
+Game:addEntity(Camera)
 
-function FramerateDisplay:draw(progress)
-   --love.graphics.print(love.timer.getFPS())
+Run.addInstance(Game)
 
-   local realX = last.x + (pos.x - last.x) * progress
-   local realY = last.y + (pos.y - last.y) * progress
-   love.graphics.circle("fill", realX, realY, 5)
-end
+local mousepress = Qecs.event("x", "y")
 
-Instance:addSystem(FramerateDisplay)
+local e = mousepress(100, 120)
+print(e.x, e.y)
+print(e.__satisfied)

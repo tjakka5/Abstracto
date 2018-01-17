@@ -1,0 +1,5 @@
+Components are just data bags. They do not need a constructor
+Components are more than just data bags. They need to allow for helper functions
+Assemblages are just data bags of components. They do not need a constructor
+Systems should be filtered and added by callback
+Make components static

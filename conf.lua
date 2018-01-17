@@ -1,5 +1,5 @@
 function love.conf(t)
-  t.identity = "Vrooom"
+  t.identity = "Abstracto"
   t.version  = "0.10.2"
   t.console  = true
 

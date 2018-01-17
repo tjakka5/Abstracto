@@ -41,18 +41,13 @@ function System:buildPool(pool)
    return Pool(name, filter)
 end
 
-function System:update(dt)
-end
-
-function System:draw()
-end
-
 function System:check(e)
    local addedTo = {}
 
    for _, pool in pairs(self.__pools) do
       if pool:check(e) then
          addedTo[#addedTo + 1] = pool
+         self:entityAddedAny(e, pool)
       end
    end
 
@@ -95,6 +90,9 @@ function System:has(e)
 end
 
 function System:entityAdded(e, pools)
+end
+
+function System:entityAddedAny(e, pool)
 end
 
 function System:entityRemoved(e, pools)

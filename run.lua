@@ -2,7 +2,7 @@ local Run = {
    instances = {},
 
    desiredFramerate = 30,
-   sleepTime        = 0,
+   sleepTime        = 0.001,
    maxKeepupFrames  = 5,
 
    desiredDelta = 0,
@@ -59,7 +59,9 @@ function Run.executeDraw()
 
       local frameProgress = Run.getFrameProgress()
       for _, instance in ipairs(Run.instances) do
+         instance:callback("preDraw", frameProgress)
          instance:callback("draw", frameProgress)
+         instance:callback("postDraw", frameProgress)
       end
 
       love.graphics.present()
