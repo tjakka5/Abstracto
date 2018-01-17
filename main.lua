@@ -1,5 +1,3 @@
-local Run = require("run").initialize()
-
 local Qecs   = require("lib.qecs")
 local Vector = require("lib.vector")
 
@@ -18,10 +16,10 @@ local SpriteRenderer  = require("src.systems.spriteRenderer")
 local InputHandler    = require("src.systems.inputHandler")
 local ViewportHandler = require("src.systems.viewportHandler")
 
-Game:addSystem(SpriteRenderer)
-Game:addSystem(Physics)
-Game:addSystem(InputHandler)
-Game:addSystem(ViewportHandler)
+Game:addSystem(SpriteRenderer, "draw")
+Game:addSystem(Physics, "update")
+Game:addSystem(InputHandler, "update")
+--Game:addSystem(ViewportHandler, "draw")
 
 local Player = Qecs.entity()
 Player:give(Transform, Vector(213, 0), Vector(38, 50))
@@ -57,10 +55,4 @@ Game:addEntity(Player)
 Game:addEntity(Ground)
 Game:addEntity(Camera)
 
-Run.addInstance(Game)
-
-local mousepress = Qecs.event("x", "y")
-
-local e = mousepress(100, 120)
-print(e.x, e.y)
-print(e.__satisfied)
+Qecs.run.addInstance(Game)

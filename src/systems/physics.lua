@@ -11,7 +11,7 @@ Physics.gravity = 1200
 
 Physics.debugDraw = true
 
-function Physics:entityAddedAny(e, pool)
+function Physics:entityAddedTo(e, pool)
    if pool.__name == "colliding" then
       local transform = e:get(Transform)
       local body      = e:get(Body)
@@ -20,25 +20,25 @@ function Physics:entityAddedAny(e, pool)
    end
 end
 
-function Physics:entityRemovedAny(e, pool)
+function Physics:entityRemovedTo(e, pool)
    if pool.__name == "colliding" then
       self.world:remove(body)
    end
 end
 
-function Physics:update(dt)
+function Physics:update(update)
    for _, e in ipairs(self.pool) do
       local transform = e:get(Transform)
       local body      = e:get(Body)
 
-      body.velocity.y = body.velocity.y + (self.gravity * body.gravityScale * dt)
+      body.velocity.y = body.velocity.y + (self.gravity * body.gravityScale * update.dt)
 
       local friction = body.velocity:clone()
       friction = friction * -body.friction
 
-      body.velocity = body.velocity + friction * dt
+      body.velocity = body.velocity + friction * update.dt
 
-      transform.position = transform.position + body.velocity * dt
+      transform.position = transform.position + body.velocity * update.dt
 
       if e:has(Collider) then
          local newX, newY, cols, len = self.world:move(body, transform.position.x, transform.position.y)

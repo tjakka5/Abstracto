@@ -11,7 +11,7 @@ function ViewportHandler:entityAdded(e)
    e:get(Viewport).camera = Camera(720, 720)
 end
 
-function ViewportHandler:update(dt)
+function ViewportHandler:update(update)
    for _, e in ipairs(self.pool) do
       local transform = e:get(Transform)
       local viewport  = e:get(Viewport)

@@ -1,14 +1,19 @@
 local PATH = (...):gsub('%.[^%.]+$', '')
 
-local Pool = require(PATH..".pool")
+local Pool         = require(PATH..".pool")
+local Event        = require(PATH..".event")
+local EventManager = require(PATH..".eventManager")
 
 local Instance = {}
 Instance.__index = Instance
 
 function Instance.new()
    local instance = setmetatable({
-      entities = Pool(),
-      systems  = {},
+      entities     = Pool(),
+      eventManager = EventManager(),
+
+      systems      = {},
+      namedSystems = {},
    }, Instance)
 
    return instance
@@ -36,24 +41,35 @@ function Instance:destroyEntity(e)
    end
 end
 
-function Instance:addSystem(system)
-   self.systems[#self.systems + 1] = system
+function Instance:addSystem(system, eventName)
+   if not self.namedSystems[system] then
+      self.systems[#self.systems + 1] = system
+      self.namedSystems[system]       = system
+   end
+
+   self.eventManager:register(eventName, system)
 end
 
-function Instance:callback(name, ...)
-   for _, system in ipairs(self.systems) do
-      if system[name] then
-         system[name](system, ...)
+function Instance:removeSystem(system)
+   for index, other in ipairs(self.systems) do
+      if system == other then
+         table.remove(self.systems, index)
       end
    end
+
+   self.namedSystems[system] = nil
+end
+
+function Instance:emit(event)
+   self.eventManager:emit(event)
 end
 
 function Instance:update(dt)
-   self:callback("update", dt)
+   self:emit(Event.update(dt))
 end
 
 function Instance:draw()
-   self:callback("draw")
+   self:emit(Event.draw())
 end
 
 return setmetatable(Instance, {
