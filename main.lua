@@ -1,4 +1,4 @@
-local Fluid = require("lib.Fluid").init({
+local Fluid = require("lib.fluid").init({
    useEvents = true
 })
 local Vector = require("lib.vector")

@@ -1,4 +1,4 @@
-local Fluid = require("lib.Fluid")
+local Fluid = require("lib.fluid")
 
 local Transform = require("src.components.transform")
 local Sprite    = require("src.components.sprite")

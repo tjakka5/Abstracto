@@ -1,4 +1,4 @@
-local Fluid = require("lib.Fluid")
+local Fluid = require("lib.fluid")
 
 local Sprite = Fluid.component(function(e, texture, color, depth)
    e.texture = texture

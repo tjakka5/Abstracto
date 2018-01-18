@@ -1,4 +1,4 @@
-local Fluid = require("lib.Fluid")
+local Fluid = require("lib.fluid")
 
 local Controls = Fluid.component(function(e, up, down, left, right)
    e.up    = up

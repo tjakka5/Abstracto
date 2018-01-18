@@ -1,5 +1,5 @@
-local Fluid = require("lib.Fluid")
-local Bump = require("lib.bump")
+local Fluid = require("lib.fluid")
+local Bump  = require("lib.bump")
 
 local Transform = require("src.components.transform")
 local Body      = require("src.components.body")

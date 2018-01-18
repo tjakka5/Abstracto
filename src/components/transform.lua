@@ -1,4 +1,4 @@
-local Fluid = require("lib.Fluid")
+local Fluid = require("lib.fluid")
 
 local Transform = Fluid.component(function(e, position, size)
    e.position = position

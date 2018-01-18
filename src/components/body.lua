@@ -1,4 +1,4 @@
-local Fluid = require("lib.Fluid")
+local Fluid = require("lib.fluid")
 
 local Body = Fluid.component(function(e, velocity, gravityScale, friction)
    e.velocity     = velocity

@@ -1,4 +1,4 @@
-local Fluid   = require("lib.Fluid")
+local Fluid   = require("lib.fluid")
 local Vector = require("lib.vector")
 
 local C = require("src.components")

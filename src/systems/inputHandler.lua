@@ -1,4 +1,4 @@
-local Fluid = require("lib.Fluid")
+local Fluid = require("lib.fluid")
 
 local Controls      = require("src.components.controls")
 local InputResponse = require("src.components.inputResponse")
