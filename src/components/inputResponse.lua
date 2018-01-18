@@ -1,6 +1,6 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
-local InputResponse = Qecs.component(function(e, up, down, left, right)
+local InputResponse = Fluid.component(function(e, up, down, left, right)
    e.up    = up
    e.down  = down
    e.left  = left

@@ -1,6 +1,6 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
-local Body = Qecs.component(function(e, velocity, gravityScale, friction)
+local Body = Fluid.component(function(e, velocity, gravityScale, friction)
    e.velocity     = velocity
    e.gravityScale = gravityScale
    e.friction     = friction

@@ -1,10 +1,10 @@
-local Qecs   = require("lib.qecs")
+local Fluid   = require("lib.Fluid")
 local Camera = require("lib.camera")
 
 local Transform = require("src.components.transform")
 local Viewport = require("src.components.viewport")
 
-local ViewportHandler = Qecs.system({Transform, Viewport})
+local ViewportHandler = Fluid.system({Transform, Viewport})
 
 function ViewportHandler:entityAdded(e)
    print(e)

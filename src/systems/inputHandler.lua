@@ -1,9 +1,9 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
 local Controls      = require("src.components.controls")
 local InputResponse = require("src.components.inputResponse")
 
-local InputHandler = Qecs.system({Controls, InputResponse})
+local InputHandler = Fluid.system({Controls, InputResponse})
 
 function InputHandler:update(update)
    for _, e in ipairs(self.pool) do

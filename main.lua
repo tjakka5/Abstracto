@@ -1,4 +1,4 @@
-local Qecs   = require("lib.qecs").init({
+local Fluid = require("lib.Fluid").init({
    useEvents = true
 })
 local Vector = require("lib.vector")
@@ -21,4 +21,4 @@ Game:addSystem(S.spriteRenderer, "draw")
 Game:addEntity(A.player(Vector(0, 0)))
 Game:addEntity(A.tile(Vector(0, 200)))
 
-Qecs.addInstance(Game)
+Fluid.addInstance(Game)

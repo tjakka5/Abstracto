@@ -1,9 +1,9 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
 local Transform = require("src.components.transform")
 local Sprite    = require("src.components.sprite")
 
-local SpriteRenderer = Qecs.system({Transform, Sprite})
+local SpriteRenderer = Fluid.system({Transform, Sprite})
 
 local function sort(a, b)
    return a:get(Sprite).depth < b:get(Sprite).depth

@@ -1,6 +1,6 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
-local Sprite = Qecs.component(function(e, texture, color, depth)
+local Sprite = Fluid.component(function(e, texture, color, depth)
    e.texture = texture
    e.color   = color
    e.depth   = depth

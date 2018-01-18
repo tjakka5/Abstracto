@@ -1,6 +1,6 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
-local Collider = Qecs.component(function(e)
+local Collider = Fluid.component(function(e)
    e.onGround = false
 end)
 

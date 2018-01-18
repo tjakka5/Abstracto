@@ -1,6 +1,6 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
-local Transform = Qecs.component(function(e, position, size)
+local Transform = Fluid.component(function(e, position, size)
    e.position = position
    e.size     = size
 end)

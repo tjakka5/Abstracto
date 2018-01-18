@@ -1,5 +1,5 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
-local Game = Qecs.instance()
+local Game = Fluid.instance()
 
 return Game

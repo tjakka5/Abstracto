@@ -1,10 +1,10 @@
-local Qecs   = require("lib.qecs")
+local Fluid   = require("lib.Fluid")
 local Vector = require("lib.vector")
 
 local C = require("src.components")
 
 return function(position, up, down, left, right)
-   local player = Qecs.entity()
+   local player = Fluid.entity()
    :give(C.transform, position or Vector(0, 0), Vector(38, 50))
    :give(C.sprite, love.graphics.newImage("assets/player/playerGreen_stand.png"), {255, 255, 255}, 1)
    :give(C.body, Vector(0, 0), 1, 7)

@@ -1,6 +1,6 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 
-local Viewport = Qecs.component(function(e, target)
+local Viewport = Fluid.component(function(e, target)
    e.target   = target
    e.attached = false
 

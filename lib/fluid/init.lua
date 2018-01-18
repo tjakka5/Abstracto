@@ -1,25 +1,25 @@
 local PATH = (...):gsub('%.init$', '')
 
-local Qecs = {}
+local Fluid = {}
 
-function Qecs.init(settings)
-   Qecs.entity       = require(PATH..".entity")
-   Qecs.component    = require(PATH..".component")
-   Qecs.system       = require(PATH..".system")
-   Qecs.instance     = require(PATH..".instance")
-   Qecs.event        = require(PATH..".event")
-   Qecs.eventManager = require(PATH..".eventManager")
+function Fluid.init(settings)
+   Fluid.entity       = require(PATH..".entity")
+   Fluid.component    = require(PATH..".component")
+   Fluid.system       = require(PATH..".system")
+   Fluid.instance     = require(PATH..".instance")
+   Fluid.event        = require(PATH..".event")
+   Fluid.eventManager = require(PATH..".eventManager")
 
    if settings and settings.useEvents then
-      Qecs.instances = {}
+      Fluid.instances = {}
 
-      Qecs.addInstance = function(instance)
-         table.insert(Qecs.instances, instance)
+      Fluid.addInstance = function(instance)
+         table.insert(Fluid.instances, instance)
       end
 
-      Qecs.removeInstance = function(instance)
-         for i, instance in ipairs(Qecs.instances) do
-            table.remove(Qecs.instances, i)
+      Fluid.removeInstance = function(instance)
+         for i, instance in ipairs(Fluid.instances) do
+            table.remove(Fluid.instances, i)
             break
          end
       end
@@ -30,8 +30,8 @@ function Qecs.init(settings)
          	love.timer.step()
       	end
 
-         for _, instance in ipairs(Qecs.instances) do
-            instance:emit(Qecs.event.load(arg))
+         for _, instance in ipairs(Fluid.instances) do
+            instance:emit(Fluid.event.load(arg))
          end
 
       	if love.timer then love.timer.step() end
@@ -42,13 +42,13 @@ function Qecs.init(settings)
       		if love.event then
       			love.event.pump()
       			for name, a, b, c, d, e, f in love.event.poll() do
-                  local event = Qecs.event[name](a, b, c, d, e, f)
+                  local event = Fluid.event[name](a, b, c, d, e, f)
 
                   if name == "quit" then
                      event.__satisfied = true
                   end
 
-                  for _, instance in ipairs(Qecs.instances) do
+                  for _, instance in ipairs(Fluid.instances) do
                      instance:emit(event)
                   end
 
@@ -63,11 +63,11 @@ function Qecs.init(settings)
       			dt = love.timer.getDelta()
       		end
 
-            for _, instance in ipairs(Qecs.instances) do
-               instance:emit(Qecs.event.update(dt))
+            for _, instance in ipairs(Fluid.instances) do
+               instance:emit(Fluid.event.update(dt))
             end
 
-            for _, instance in ipairs(Qecs.instances) do
+            for _, instance in ipairs(Fluid.instances) do
                instance.eventManager:process()
             end
 
@@ -75,8 +75,8 @@ function Qecs.init(settings)
       			love.graphics.clear(love.graphics.getBackgroundColor())
       			love.graphics.origin()
 
-               for _, instance in ipairs(Qecs.instances) do
-                  instance:emit(Qecs.event.draw())
+               for _, instance in ipairs(Fluid.instances) do
+                  instance:emit(Fluid.event.draw())
                end
 
       			love.graphics.present()
@@ -87,7 +87,7 @@ function Qecs.init(settings)
       end
    end
 
-   return Qecs
+   return Fluid
 end
 
-return Qecs
+return Fluid

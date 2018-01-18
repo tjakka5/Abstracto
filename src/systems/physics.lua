@@ -1,11 +1,11 @@
-local Qecs = require("lib.qecs")
+local Fluid = require("lib.Fluid")
 local Bump = require("lib.bump")
 
 local Transform = require("src.components.transform")
 local Body      = require("src.components.body")
 local Collider  = require("src.components.collider")
 
-local Physics = Qecs.system({Transform, Body}, {Transform, Body, Collider, "colliding"})
+local Physics = Fluid.system({Transform, Body}, {Transform, Body, Collider, "colliding"})
 Physics.world   = Bump.newWorld(128)
 Physics.gravity = 1200
 
