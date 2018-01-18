@@ -48,6 +48,8 @@ function Instance:addSystem(system, eventName)
    end
 
    self.eventManager:register(eventName, system)
+
+   return self
 end
 
 function Instance:removeSystem(system)
@@ -58,18 +60,26 @@ function Instance:removeSystem(system)
    end
 
    self.namedSystems[system] = nil
+
+   return self
 end
 
 function Instance:emit(event)
    self.eventManager:emit(event)
+
+   return self
 end
 
 function Instance:update(dt)
    self:emit(Event.update(dt))
+
+   return self
 end
 
 function Instance:draw()
    self:emit(Event.draw())
+
+   return self
 end
 
 return setmetatable(Instance, {

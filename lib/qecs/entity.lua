@@ -19,19 +19,22 @@ function Entity.new()
 end
 
 function Entity:give(component, ...)
-   local bag = component:initialize(self, ...)
-   self.components[component] = bag
+   self.components[component] = component:initialize(self, ...)
 
-   return bag
+   return self
 end
 
 function Entity:check()
    self.instance:checkEntity(self)
+
+   return self
 end
 
 function Entity:destroy()
    Entity.entities[self.id] = nil
    self.instance:destroyEntity(self)
+
+   return self
 end
 
 function Entity:get(component)

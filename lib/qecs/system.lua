@@ -13,7 +13,6 @@ function System.new(...)
    }, System)
 
    for _, filter in pairs({...}) do
-
       local pool = system:buildPool(filter)
       if not system[pool.__name] then
          system[pool.__name]                 = pool

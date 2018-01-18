@@ -21,15 +21,15 @@ function ViewportHandler:update(update)
    end
 end
 
-function ViewportHandler:preDraw()
+function ViewportHandler:draw()
    for _, e in ipairs(self.pool) do
-      e:get(Viewport).camera:attach()
-   end
-end
+      local viewport = e:get(Viewport)
 
-function ViewportHandler:postDraw()
-   for _, e in ipairs(self.pool) do
-      e:get(Viewport).camera:detach()
+      if not viewport.attached then
+         viewport.camera:attach()
+      else
+         viewport.camera:detach()
+      end
    end
 end
 
